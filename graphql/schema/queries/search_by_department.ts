@@ -11,7 +11,7 @@ import {
 } from "../../../lib/utils.js";
 import { NodeType } from "../common.js";
 
-export const SearchByNameQuery: GraphQLFieldConfig<
+export const SearchByDepartmentQuery: GraphQLFieldConfig<
   any,
   any,
   { department: string }

@@ -1,15 +1,16 @@
 import {
   GraphQLBoolean,
   GraphQLFloat,
-  GraphQLInterfaceType,
   GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
 } from "graphql";
-import { SearchByNameQuery } from "./queries/search_by_name.js";
 import { NodeType } from "./common.js";
+import { FindByIdQuery } from "./queries/find_by_id.js";
+import { SearchByDepartmentQuery } from "./queries/search_by_department.js";
+import { SearchByNameQuery } from "./queries/search_by_name.js";
 
 const RelationshipType = new GraphQLObjectType({
   name: "Relationship",
@@ -140,6 +141,8 @@ const QueryType = new GraphQLObjectType({
   name: "Query",
   fields: {
     searchByName: SearchByNameQuery,
+    searchByDepartment: SearchByDepartmentQuery,
+    findById: FindByIdQuery,
   },
 });
 
