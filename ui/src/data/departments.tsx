@@ -10,6 +10,7 @@ import {
   IconTrees,
   IconVolcano,
 } from "@tabler/icons-react";
+import React from "react";
 
 export const DEPARTMENTS = [
   {
