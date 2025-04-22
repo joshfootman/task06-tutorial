@@ -63,16 +63,53 @@ You will interact with the following libraries over the course of this learning
 
 # Tasks
 
-## 1. Create the Router & Root Layout
+## 1. Create the Root Layout & Router
 
-## 2. Create the Form drawer
+- [ ] implement root layout
+- [ ] implement `createBrowserRouter` with the following routes
+  - dashboard (`/`)
+  - search (`/search`)
+  - analysis (`/analysis`)
+    - network (`/analysis/network`)
+    - map (`/analysis/map`)
+    - table (`/analysis/table`)
 
-## 3. Create Modals & implement DarkTheme™
+## 2. Create Modals & implement DarkTheme™
 
-## 4. Dashboard
+- [ ] implement settings modal
+- [ ] implement dark theme toggle
+- [ ] ensure application supports dark theme
 
-## 5. Search
+## 3. Dashboard
 
-## 6. Analysis
+- [ ] implement dashboard filter panel
+- [ ] create dashboard query
+- [ ] create count widget for each entity
 
+## 4. Search
+
+- [ ] implement search filter panel
+- [ ] implement search box
+- [ ] implement cards
+
+## 5. Analysis
+
+- [ ] disable analysis navigation unless a user has made a search
+- [ ] implement analysis filter panel
+- [ ] implement analysis ribbon with segmented control to toggle between views 
+- [ ] implement cytoscape
+- [ ] implement openlayers
+- [ ] implement data table
+- [ ] remember the last analysis search when you navigate back to analysis
+
+## 6. Create the Form drawer
+
+- [ ] implement drawer
+- [ ] implement form to create project
+
+## 7. Bonus
+
+- [ ] implement the ability to change cytoscape layout
+- [ ] implement dynamic clustering on map
+- [ ] implement a context menu in analysis to open an edit form
 
