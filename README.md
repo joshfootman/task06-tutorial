@@ -1,22 +1,40 @@
 # Charlottes Web
 
-This repository is for learning the technologies used within the Task 6 application.
+This repository is for learning the technologies used within the Task 6 application. The goal here is for you to learn about the libraries used within the UI and give you a chance to get your hands dirty.
 
-Data within Charlottes Web can take one of four forms
+## Data Structure
 
-- Institute
-- Laboratory
-- Organisation
-- Projects
+### Entities
 
-![data](/assets/data.png)
+There are four types of entities:
+- Research Project (triangle): A high-level study that a University sector conducts to advance knowledge in a particular field.
+- Laboratory (circle): Those facilities, equipment, or tools that support the conduct of Research Projects, either directly or indirectly.
+- Researcher (square): A private or public sector individual, company, or business that owns, operates, maintains, or supplies a Laboratory.
+- Institution (diamond): Institution where Laboratory or Researcher is affiliated with.
 
-Relations between data can be seen in the following image
-![relationships](/assets/relationships.png)
+### Relationships
+
+The following explains the relationship structure:
+- Research Projects belong to Departments
+- Laboratories belong to Departments
+- Researchers belong to Departments
+- Research Projects can support Research Projects within the same Department
+- Laboratories can support Research Projects within the same Department
+- Laboratories can have dependencies, redundancies, or be sub-laboratories of other Laboratories within the same Department
+- Laboratories can have relationships with Laboratories from other Departments (e.g., sharing resources, collaborating on Research Projects)
+- Researchers can own, operate, supply, or maintain Laboratories
+- Research Projects and Laboratories can be affiliated with Institutions
 
 ## /graphql
 
 Apollo GraphQL Server
+
+### Getting Started
+
+To run the Apollo GraphQL Server, run the following
+```
+npm run start
+```
 
 ## /lib
 
@@ -26,69 +44,35 @@ Fake database
 
 React + TypeScript Vite Application
 
-### Tasks
+### Getting Started
 
-1. Implement a basic root structure similar to the image below
+To start the dev server, run the following
+```
+npm run dev
+```
 
-- There should be 3 sections, the navigation bar, the filter panel and the page
-- This should be visible on all pages
-- There will be 6 items in the nav-bar (3 at the top, 3 at the bottom)
-  - top
-    - dashboard
-    - search
-    - analysis (this should be disabled by default until a search has been made, at that point, navigating here should remember the last valid query)
-  - bottom
-    - create
-    - help
-    - settings
-- the filter panel will have unique filters per page
-  - dashboard
-    - department
-  - search
-    - department
-  - analysis
-    - department
-- filters should be a list of checkboxes that have the icon next to the name
+### Libraries
 
-![general structure](/assets/general_structure.png)
+You will interact with the following libraries over the course of this learning
+- [mantine](https://mantine.dev/)
+- [react-query](https://tanstack.com/query/latest)
+- [cytoscape](https://js.cytoscape.org/)
+- [openlayers](https://openlayers.org/)
+- [jotai](https://jotai.org/)
+- [react-router](https://reactrouter.com/6.30.0)
 
-2. Implement the search page
+# Tasks
 
-- There should be an input at the top where you can type, this should call the `searchByName` graphql query
-- results should be shown in a table
-- results should show the following
-  - icon of shape with the correct department stroke
-  - id
-  - name
-  - type of node
-  - department (if valid)
-- clicking a row should navigate you to analysis in the network view, you should also be able to choose to navigate to the map or table first if you want
-- By default, a number of cards should be visible on the search page (one for each department)
-- Clicking a card should navigate you to analysis in the network view
-  ![search default structure](/assets/search_default.png)
-  ![search after input](/assets/search_input.png)
+## 1. Create the Router & Root Layout
 
-3. Implement the analysis page
+## 2. Create the Form drawer
 
-- depending on whether a user clicked a card or typed a name, you should call `searchByDepartment` or `findById` respectively
-- the analysis view should have 3 views
-  - network (cytoscape)
-  - map (openlayers)
-  - table (up to you)
-- the analysis page is broken into 3 elements, the ribbon at the top, the properties panel that is conditionally rendered and the page
-- use the `findById` graphql query to get the data for when the properties panel is opened
-- the network should show all data, the map only data that has a valid location, and the table should also show all data (merge all four types of data into a single table)
-- the ribbon should contain actions that change depending on view
-  - analysis
-    - change layout between dagre & concentric
-  - map
-    - a button that zooms to downing street 🤷
-  - table
-    - the ability to hide columns
+## 3. Create Modals & implement DarkTheme™
 
-![analysis structure](/assets/analysis.png)
+## 4. Dashboard
 
-4. Implement the dashboard page
+## 5. Search
 
-- TODO
-  ![dashboard structure](/assets/dashboard.png)
+## 6. Analysis
+
+
