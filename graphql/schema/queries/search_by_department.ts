@@ -6,8 +6,7 @@ import {
 } from "graphql";
 import {
   findByDepartment,
-  formatResponses,
-  randomWait,
+  randomWait
 } from "../../../lib/utils.js";
 import { NodeType } from "../common.js";
 
@@ -21,8 +20,7 @@ export const SearchByDepartmentQuery: GraphQLFieldConfig<
   },
   resolve: async (_, { department }) => {
     await randomWait();
-    const response = findByDepartment(department);
-    return formatResponses(response);
+    return findByDepartment(department);
   },
   type: new GraphQLList(NodeType),
 };

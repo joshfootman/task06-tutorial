@@ -5,25 +5,24 @@ import {
   GraphQLNonNull,
   GraphQLString,
 } from "graphql";
-import { findByName, formatResponses, randomWait } from "../../../lib/utils.js";
+import { findByName, randomWait } from "../../../lib/utils.js";
 import { NodeType } from "../common.js";
 
 export const SearchByNameQuery: GraphQLFieldConfig<
   any,
   any,
-  { term: string; department: string; limit: number }
+  { term: string; departments: string[]; limit: number }
 > = {
   args: {
     term: {
       type: new GraphQLNonNull(GraphQLString),
     },
-    department: { type: GraphQLString },
+    departments: { type: new GraphQLList(GraphQLString) },
     limit: { type: GraphQLInt, defaultValue: 50 },
   },
-  resolve: async (_, { department, limit, term }) => {
+  resolve: async (_, { departments, limit, term }) => {
     await randomWait();
-    const response = findByName(term, limit, department);
-    return formatResponses(response);
+    return findByName(term, limit, departments);
   },
   type: new GraphQLList(NodeType),
 };

@@ -1,17 +1,16 @@
-import { GraphQLFieldConfig, GraphQLNonNull, GraphQLString } from "graphql";
-import { findById, formatResponses, randomWait } from "../../../lib/utils.js";
+import { GraphQLFieldConfig, GraphQLInt, GraphQLNonNull } from "graphql";
+import { findById, randomWait } from "../../../lib/utils.js";
 import { NodeType } from "../common.js";
 
-export const FindByIdQuery: GraphQLFieldConfig<any, any, { id: string }> = {
+export const FindByIdQuery: GraphQLFieldConfig<any, any, { id: number }> = {
   args: {
     id: {
-      type: new GraphQLNonNull(GraphQLString),
+      type: new GraphQLNonNull(GraphQLInt),
     },
   },
   resolve: async (_, { id }) => {
     await randomWait();
-    const response = findById(id);
-    return formatResponses([response])[0];
+    return findById(id)[0];
   },
   type: NodeType,
 };

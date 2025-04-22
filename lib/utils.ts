@@ -1,4 +1,4 @@
-import { institutes, laboratories, organisations, projects } from "./db.js";
+import { institutions, biology, chemistry, physics, type Institution, type Project, type Laboratory, type Researcher, type Relationship } from "./db.js";
 
 export const randomWait = (): Promise<void> => {
   const waitTime = Math.floor(Math.random() * 4000) + 1000; // Random time between 1 and 5 seconds
@@ -7,116 +7,200 @@ export const randomWait = (): Promise<void> => {
   });
 };
 
-type Institute = (typeof institutes)[number];
-type Laboratories = (typeof laboratories)[number];
-type Organisations = (typeof organisations)[number];
-type Projects = (typeof projects)[number];
+type Entity = Project | Laboratory | Researcher | Institution
 
-type Response = Institute | Laboratories | Organisations | Projects;
+type FormattedEntity = Entity & {
+  relationships: {
+    id: number,
+    type: string,
+    target: Entity
+  }[]
+} 
 
-export const findById = (id: string): Response => {
+export const findById = (id: number): FormattedEntity[] => {
   const results = [
-    ...institutes,
-    ...laboratories,
-    ...organisations,
-    ...projects,
+    ...biology.projects,
+    ...biology.laboratories,
+    ...biology.researchers,
+    ...chemistry.projects,
+    ...chemistry.laboratories,
+    ...chemistry.researchers,
+    ...physics.projects,
+    ...physics.laboratories,
+    ...physics.researchers,
+    ...institutions
   ];
 
-  return results.find((r) => r.id === id);
+  const result = results.find((r) => r.id === id);
+
+  if (!result) {
+    throw new Error("Invalid id")
+  }
+
+  return formatResponses([result])
 };
 
 export const findByName = (
   term: string,
   limit: number,
-  department?: string
-): Response[] => {
-  const results = [
-    ...institutes,
-    ...laboratories,
-    ...organisations,
-    ...projects,
-  ];
+  department?: string[]
+): FormattedEntity[] => {
+  const datasets: Entity[] = []
+  if (!department || department.length === 3) {
+    datasets.push(
+      ...institutions,
+      ...biology.projects,
+      ...biology.laboratories,
+      ...biology.researchers,
+      ...chemistry.projects,
+      ...chemistry.laboratories,
+      ...chemistry.researchers,
+      ...physics.projects,
+      ...physics.laboratories,
+      ...physics.researchers,
+    )
+  } else {
+    datasets.push(...institutions)
 
-  const filtered = results.filter((val) => {
-    if ("department" in val && department) {
-      return val.name.includes(term) && val.department === department;
-    } else {
-      return val.name.includes(term);
+    if (department.includes('Biological Sciences')) {
+      datasets.push(
+        ...biology.projects,
+        ...biology.laboratories,
+        ...biology.researchers,
+      )
     }
-  });
 
-  // lmao
-  filtered.length = Math.min(filtered.length, limit);
+    if (department.includes('Chemistry')) {
+      datasets.push(
+        ...chemistry.projects,
+        ...chemistry.laboratories,
+        ...chemistry.researchers,
+      )
+    }
 
-  return filtered;
+    if (department.includes('Physics & Astronomy')) {
+      datasets.push(
+        ...physics.projects,
+        ...physics.laboratories,
+        ...physics.researchers,
+      )
+    }
+  }
+
+  return formatResponses(datasets.filter((val) => val.name.includes(term)).slice(0, limit));
 };
 
-export const findByDepartment = (department: string): Response[] => {
-  const institute = institutes.find((i) => i.department === department);
-  const laboratory = laboratories.find((l) => l.department === department);
-  const organisationFromLab = organisations.find(
-    (o) => o.laboratory_id === laboratory.id
-  );
-  const projectsFromLab = projects.filter((pr) =>
-    laboratory.project_ids.includes(pr.id)
-  );
+export const findByDepartment = (department: string): FormattedEntity[] => {
+  if (department.includes('Biological Sciences')) {
+    return formatResponses([
+      ...institutions,
+      ...biology.projects,
+      ...biology.laboratories,
+      ...biology.researchers,
+    ])
+  }
 
-  return [institute, laboratory, organisationFromLab, ...projectsFromLab];
+  if (department.includes('Chemistry')) {
+    return formatResponses([
+      ...institutions,
+      ...chemistry.projects,
+      ...chemistry.laboratories,
+      ...chemistry.researchers,
+    ])
+  }
+
+  if (department.includes('Physics & Astronomy')) {
+    return formatResponses([
+      ...institutions,
+      ...physics.projects,
+      ...physics.laboratories,
+      ...physics.researchers,
+    ])
+  }
+
+  throw new Error('Invalid department')
 };
 
-export const formatResponses = (response: Response[]) => {
-  const results = response.map((result) => {
-    if ("location" in result) {
-      const { laboratory_id, ...rest } = result;
-      const lab = laboratories.find((l) => l.id === laboratory_id);
-      const relationships: any[] = [];
-      if (lab) relationships.push({ id: `${rest.id}-${lab.id}`, target: lab });
-      return { ...rest, relationships };
+export const dashboardCounts = (department?: string[]) => {
+  if (!department || department.length === 3) {
+    return {
+      institutions: institutions.length,
+      projects: biology.projects.length + chemistry.projects.length + physics.projects.length,
+      laboratories: biology.laboratories.length + chemistry.laboratories.length + physics.laboratories.length,
+      researchers: biology.researchers.length + chemistry.researchers.length + physics.researchers.length,
+    }
+  } else {
+    let projects = 0;
+    let laboratories = 0;
+    let researchers = 0;
+    if (department.includes('Biological Sciences')) {
+      projects += biology.projects.length
+      laboratories += biology.laboratories.length
+      researchers += biology.researchers.length
     }
 
-    if ("equipment" in result) {
-      const { institute_id, organisation_id, project_ids, ...rest } = result;
-      const inst = institutes.find((i) => i.id === institute_id);
-      const org = organisations.find((o) => o.id === organisation_id);
-      const projs = projects.filter((pr) => project_ids.includes(pr.id));
-      const relationships: any[] = [];
-      if (inst)
-        relationships.push({ id: `${rest.id}-${inst.id}`, target: inst });
-      if (org) relationships.push({ id: `${rest.id}-${org.id}`, target: org });
-      if (projs.length > 0)
-        relationships.push(
-          ...projs.map((pr) => ({
-            id: `${rest.id}-${pr.id}`,
-            target: pr,
-          }))
-        );
-      return { ...rest, relationships };
+    if (department.includes('Chemistry')) {
+      projects += chemistry.projects.length
+      laboratories += chemistry.laboratories.length
+      researchers += chemistry.researchers.length
     }
 
-    if ("started_date" in result) {
-      const { laboratory_id, organisation_id, ...rest } = result;
-      const lab = laboratories.find((l) => l.id === laboratory_id);
-      const org = organisations.find((o) => o.id === organisation_id);
-      const relationships: any[] = [];
-      if (lab) relationships.push({ id: `${rest.id}-${lab.id}`, target: lab });
-      if (org) relationships.push({ id: `${rest.id}-${org.id}`, target: org });
-      return { ...rest, relationships };
+    if (department.includes('Physics & Astronomy')) {
+      projects += physics.projects.length
+      laboratories += physics.laboratories.length
+      researchers += biology.researchers.length
     }
 
-    const { laboratory_id, project_ids, ...rest } = result;
-    const lab = laboratories.find((l) => l.id === laboratory_id);
-    const projs = projects.filter((pr) => project_ids.includes(pr.id));
-    const relationships: any[] = [];
-    if (lab) relationships.push({ id: `${rest.id}-${lab.id}`, target: lab });
-    if (projs.length > 0)
-      relationships.push(
-        ...projs.map((pr) => ({
-          id: `${rest.id}-${pr.id}`,
-          target: pr,
-        }))
-      );
-    return { ...rest, relationships };
-  });
+    return {
+      institutions: institutions.length,
+      projects,
+      laboratories,
+      researchers,
+    }
+  }
+}
+
+export const formatResponses = (entities: Entity[]): FormattedEntity[] => {
+  const results: FormattedEntity[] = []
+
+  entities.forEach((entity) => {
+    const formattedEntity: FormattedEntity = { ...entity, relationships: [] }
+    const relationships: Relationship[] = []
+    if (entity.type === "PROJECT" || entity.type === "LABORATORY" || entity.type === "RESEARCHER") {
+      if (entity.department === 'Biological Sciences') {
+        const relationships = biology.relationships.filter((relationship) => relationship.source === entity.id)
+        relationships.forEach((relationship) => {
+          const target = [...institutions, ...biology.projects, ...biology.laboratories, ...biology.researchers].find((e) => e.id === relationship.target)!
+          formattedEntity.relationships.push({
+            id: relationship.id,
+            type: relationship.type,
+            target
+          })
+        })
+      } else if (entity.department === 'Chemistry') {
+        const relationships = chemistry.relationships.filter((relationship) => relationship.source === entity.id)
+        relationships.forEach((relationship) => {
+          const target = [...institutions, ...chemistry.projects, ...chemistry.laboratories, ...chemistry.researchers].find((e) => e.id === relationship.target)!
+          formattedEntity.relationships.push({
+            id: relationship.id,
+            type: relationship.type,
+            target
+          })
+        })
+      } else if (entity.department === 'Physics & Astronomy') {
+        const relationships = physics.relationships.filter((relationship) => relationship.source === entity.id)
+        relationships.forEach((relationship) => {
+          const target = [...institutions, ...physics.projects, ...physics.laboratories, ...physics.researchers].find((e) => e.id === relationship.target)!
+          formattedEntity.relationships.push({
+            id: relationship.id,
+            type: relationship.type,
+            target
+          })
+        })
+      }
+    }
+    results.push(formattedEntity)
+  })
 
   return results;
 };
