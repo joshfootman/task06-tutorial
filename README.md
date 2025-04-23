@@ -59,56 +59,13 @@ You will interact with the following libraries over the course of this learning
 
 # Tasks
 
-## 1. Create the Root Layout & Router
-
-- [ ] implement root layout
-- [ ] implement `createBrowserRouter` with the following routes
-  - dashboard (`/`)
-  - search (`/search`)
-  - analysis (`/analysis`)
-    - network (`/analysis/network`)
-    - map (`/analysis/map`)
-    - table (`/analysis/table`)
-
-## 2. Create Modals & implement DarkTheme™
-
-- [ ] implement settings modal
-- [ ] implement dark theme toggle
-- [ ] ensure application supports dark theme
-
-## 3. Dashboard
-
-- [ ] implement dashboard filter panel
-- [ ] create dashboard query
-- [ ] create count widget for each entity
-
-## 4. Search
-
-- [ ] implement search filter panel
-- [ ] implement search box
-- [ ] implement cards
-
-## 5. Analysis
-
-- [ ] disable analysis navigation unless a user has made a search
-- [ ] implement analysis filter panel
-- [ ] implement analysis ribbon with segmented control to toggle between views 
-- [ ] implement cytoscape
-- [ ] implement openlayers
-- [ ] implement data table
-- [ ] implement properties panel
-- [ ] remember the last analysis search when you navigate back to analysis
-
-## 6. Create the Form drawer
-
-- [ ] implement drawer
-- [ ] implement form to create project
-
-## 7. Bonus
-
-- [ ] implement the ability to change cytoscape layout
-- [ ] implement dynamic clustering on map
-- [ ] implement a context menu in analysis to open an edit form
+- [Task 1: Create the Root Layout & Router](/tasks/task1.md)
+- [Task 2: Create Modals & implement DarkTheme™](/tasks/task2.md)
+- [Task 3: Dashboard](/tasks/task3.md)
+- [Task 4: Search](/tasks/task4.md)
+- [Task 5: Analysis](/tasks/task5.md)
+- [Task 6: Create the Form drawer](/tasks/task6.md)
+- [Task 7: Bonus](/tasks/task7.md)
 
 # TODO
 
