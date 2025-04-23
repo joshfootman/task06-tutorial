@@ -7,12 +7,18 @@
 
 - [ ] disable analysis navigation unless a user has made a search
 - [ ] implement analysis filter panel
-- [ ] implement analysis ribbon with segmented control to toggle between views 
+- [ ] implement analysis ribbon with segmented control to toggle between views
 - [ ] implement cytoscape
 - [ ] implement openlayers
 - [ ] implement data table
 - [ ] implement properties panel
 - [ ] remember the last analysis search when you navigate back to analysis
+
+## Analysis
+
+- the following GraphQL queries should be implemented depending on how users navigated to analysis
+  - `searchByDepartment` - clicked on a card
+  - `findById` - clicked on a search result
 
 ## Filter panel
 

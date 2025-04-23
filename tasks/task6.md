@@ -26,10 +26,16 @@
   - finishedDate
   - goal
   - department
-- project form should have the following validation
+- project form should have the following client validation
   - name is required and should be more than 5 characters
   - startedDate is required and should be in the past or current day
   - goal is required and should be more than 10 characters
   - department is required and should be one of the valid departments
+- the following server validation should be shown
+  - name already exists
 - clicking on the edit button in the properties panel should open the form with the corresponding values allowing users to edit
 - edit form should also include a button to delete the project
+- the corresponding GraphQL mutation should be implemented for each step
+  - `createProject`
+  - `editProject`
+  - `deleteProject`

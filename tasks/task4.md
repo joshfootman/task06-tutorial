@@ -26,6 +26,7 @@
   - department
 - search state should be derived from the URL
 - clicking on a result should navigate to analysis
+- search should use the `searchByName` GraphQL query
 
 ## Cards
 

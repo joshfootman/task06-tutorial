@@ -22,5 +22,6 @@
   - count of each entity
   - name of each entity
   - icon of each entity
+- dashboard counts widget should use the `dashboardCounts` GraphQL query
 - widgets should have the ability to be refreshed
 - widgets should have a skeleton loader
