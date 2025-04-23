@@ -53,3 +53,4 @@
 - clicking on a node or relationship should open the properties panel on the rhs
 - properties panel should include a list of all the properties
 - clicking on a relationship should include the source and target entities
+- properties panel should include an edit button

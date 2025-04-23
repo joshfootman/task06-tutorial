@@ -31,3 +31,5 @@
   - startedDate is required and should be in the past or current day
   - goal is required and should be more than 10 characters
   - department is required and should be one of the valid departments
+- clicking on the edit button in the properties panel should open the form with the corresponding values allowing users to edit
+- edit form should also include a button to delete the project
