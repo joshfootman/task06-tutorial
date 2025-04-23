@@ -10,7 +10,7 @@
 
 ## Filter panel
 
-- filter panel should have the title `Dashboard Filters`
+- filter panel should have the title `Search Filters`
 - filter panel should include a button to reset filters
 - filter panel should have the option to filter by department
 - department filters should include the icon and name of department
