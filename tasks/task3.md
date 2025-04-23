@@ -1,4 +1,4 @@
-## Task 3: Dashboard
+# Task 3: Dashboard
 
 ![sketch of the dashboard page](/assets/task3.png)
 
