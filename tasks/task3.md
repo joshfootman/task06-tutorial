@@ -14,6 +14,7 @@
 - filter panel should include a button to reset filters
 - filter panel should have the option to filter by department
 - department filters should include the icon and name of department
+- filter state should be derived from the URL
 
 ## Widgets
 
