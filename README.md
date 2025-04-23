@@ -27,23 +27,18 @@ The following explains the relationship structure:
 - Researchers can own, operate, supply, or maintain Laboratories
 - Research Projects and Laboratories can be affiliated with Institutions
 
-## /graphql
+## Getting Started
 
-Apollo GraphQL Server
-
-### Getting Started
+### GraphQL
 
 To run the Apollo GraphQL Server, run the following
 
 ```
+npm run compile
 npm run start
 ```
 
-## /ui
-
-React + TypeScript Vite Application
-
-### Getting Started
+### UI
 
 To start the dev server, run the following
 
@@ -51,7 +46,7 @@ To start the dev server, run the following
 npm run dev
 ```
 
-### Libraries
+## Libraries
 
 You will interact with the following libraries over the course of this learning
 
