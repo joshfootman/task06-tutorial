@@ -1,6 +1,6 @@
 # Task 4: Search
 
-![sketch of the dashboard page](/assets/task4.png)
+![sketch of the search page](/assets/task4.png)
 
 ## Goals
 
