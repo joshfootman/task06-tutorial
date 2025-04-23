@@ -4,29 +4,32 @@ import {
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
-  GraphQLString
-} from "graphql";
-import { NodeType } from "./common.js";
-import { DashboardCountsQuery } from "./queries/dashboard_counts.js";
-import { FindByIdQuery } from "./queries/find_by_id.js";
-import { SearchByDepartmentQuery } from "./queries/search_by_department.js";
-import { SearchByNameQuery } from "./queries/search_by_name.js";
+  GraphQLString,
+} from 'graphql'
+import { NodeType } from './common.js'
+import { DashboardCountsQuery } from './queries/dashboard_counts.js'
+import { FindByIdQuery } from './queries/find_by_id.js'
+import { SearchByDepartmentQuery } from './queries/search_by_department.js'
+import { SearchByNameQuery } from './queries/search_by_name.js'
+import { CreateProjectMutation } from './mutations/create_project.js'
+import { EditProjectMutation } from './mutations/edit_project.js'
+import { DeleteProjectMutation } from './mutations/delete_project.js'
 
 const RelationshipType = new GraphQLObjectType({
-  name: "Relationship",
+  name: 'Relationship',
   fields: {
     id: { type: new GraphQLNonNull(GraphQLString) },
     type: { type: new GraphQLNonNull(GraphQLString) },
     target: { type: new GraphQLNonNull(NodeType) },
   },
-});
+})
 
 const Institute = {
   id: { type: new GraphQLNonNull(GraphQLString) },
   name: { type: new GraphQLNonNull(GraphQLString) },
   city: { type: new GraphQLNonNull(GraphQLString) },
-  type: { type: new GraphQLNonNull(GraphQLString) }
-};
+  type: { type: new GraphQLNonNull(GraphQLString) },
+}
 
 const Project = {
   id: { type: new GraphQLNonNull(GraphQLString) },
@@ -36,27 +39,29 @@ const Project = {
   finishedDate: { type: GraphQLString },
   goal: { type: new GraphQLNonNull(GraphQLString) },
   type: { type: new GraphQLNonNull(GraphQLString) },
-  department: { type: new GraphQLNonNull(GraphQLString) }
-};
+  department: { type: new GraphQLNonNull(GraphQLString) },
+}
 
 const Laboratory = {
   id: { type: new GraphQLNonNull(GraphQLString) },
   name: { type: new GraphQLNonNull(GraphQLString) },
   description: { type: new GraphQLNonNull(GraphQLString) },
   room: { type: new GraphQLNonNull(GraphQLString) },
-  physicalLocation: { 
-    type: new GraphQLList(new GraphQLObjectType({
-      name: "Location",
-      fields: {
-        latitude: { type: new GraphQLNonNull(GraphQLFloat) },
-        longitude: { type: new GraphQLNonNull(GraphQLFloat) },
-      }
-    })) 
+  physicalLocation: {
+    type: new GraphQLList(
+      new GraphQLObjectType({
+        name: 'Location',
+        fields: {
+          latitude: { type: new GraphQLNonNull(GraphQLFloat) },
+          longitude: { type: new GraphQLNonNull(GraphQLFloat) },
+        },
+      })
+    ),
   },
   equipment: { type: GraphQLString },
   type: { type: new GraphQLNonNull(GraphQLString) },
   department: { type: new GraphQLNonNull(GraphQLString) },
-};
+}
 
 const Researcher = {
   id: { type: new GraphQLNonNull(GraphQLString) },
@@ -66,43 +71,43 @@ const Researcher = {
   contactEmail: { type: new GraphQLNonNull(GraphQLString) },
   type: { type: new GraphQLNonNull(GraphQLString) },
   department: { type: new GraphQLNonNull(GraphQLString) },
-};
+}
 
 const InstituteType = new GraphQLObjectType({
-  name: "Institution",
+  name: 'Institution',
   fields: {
     ...Institute,
     relationships: { type: new GraphQLList(RelationshipType) },
   },
   interfaces: [NodeType],
-});
+})
 
 const LaboratoryType = new GraphQLObjectType({
-  name: "Laboratory",
+  name: 'Laboratory',
   fields: {
     ...Laboratory,
     relationships: { type: new GraphQLList(RelationshipType) },
   },
   interfaces: [NodeType],
-});
+})
 
 const ResearcherType = new GraphQLObjectType({
-  name: "Researcher",
+  name: 'Researcher',
   fields: {
     ...Researcher,
     relationships: { type: new GraphQLList(RelationshipType) },
   },
   interfaces: [NodeType],
-});
+})
 
 const ProjectType = new GraphQLObjectType({
-  name: "Project",
+  name: 'Project',
   fields: {
     ...Project,
     relationships: { type: new GraphQLList(RelationshipType) },
   },
   interfaces: [NodeType],
-});
+})
 
 /**
  * ===========================================================================
@@ -112,17 +117,26 @@ const ProjectType = new GraphQLObjectType({
  */
 
 const QueryType = new GraphQLObjectType({
-  name: "Query",
+  name: 'Query',
   fields: {
     searchByName: SearchByNameQuery,
     searchByDepartment: SearchByDepartmentQuery,
     findById: FindByIdQuery,
-    dashboardCounts: DashboardCountsQuery
+    dashboardCounts: DashboardCountsQuery,
   },
-});
+})
+
+const MutationType = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    createProject: CreateProjectMutation,
+    editProject: EditProjectMutation,
+    deleteProject: DeleteProjectMutation,
+  },
+})
 
 export const schema = new GraphQLSchema({
   query: QueryType,
-  // mutation: [],
+  mutation: MutationType,
   types: [InstituteType, LaboratoryType, ResearcherType, ProjectType],
-});
+})
