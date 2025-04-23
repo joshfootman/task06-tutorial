@@ -36,10 +36,6 @@ To run the Apollo GraphQL Server, run the following
 npm run start
 ```
 
-## /lib
-
-Fake database
-
 ## /ui
 
 React + TypeScript Vite Application
@@ -100,6 +96,7 @@ You will interact with the following libraries over the course of this learning
 - [ ] implement cytoscape
 - [ ] implement openlayers
 - [ ] implement data table
+- [ ] implement properties panel
 - [ ] remember the last analysis search when you navigate back to analysis
 
 ## 6. Create the Form drawer
