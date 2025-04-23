@@ -4,7 +4,10 @@
   "main": "index.js",
   "scripts": {
     "compile": "tsc",
-    "start": "npm run compile && node ./dist/graphql/index.js"
+    "start": "npm run compile && node ./dist/graphql/index.js",
+    "db:push": "drizzle-kit push",
+    "db:seed": "tsx ./src/seed.ts",
+    "db:studio": "drizzle-kit studio"
   },
   "keywords": [],
   "author": "",
@@ -13,7 +16,12 @@
   "type": "module",
   "dependencies": {
     "@apollo/server": "^4.11.0",
-    "graphql": "^16.9.0"
+    "@libsql/client": "^0.15.4",
+    "dotenv": "^16.5.0",
+    "drizzle-kit": "^0.31.0",
+    "drizzle-orm": "^0.42.0",
+    "graphql": "^16.9.0",
+    "tsx": "^4.19.3"
   },
   "devDependencies": {
     "@types/node": "^22.6.0",
