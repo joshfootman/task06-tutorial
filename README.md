@@ -110,3 +110,10 @@ You will interact with the following libraries over the course of this learning
 - [ ] implement dynamic clustering on map
 - [ ] implement a context menu in analysis to open an edit form
 
+# TODO
+
+- [ ] add sqlite database to allow for mutations
+- [ ] implement create / edit / delete mutations for projects
+- [ ] implement exporting capability
+- [ ] add some form of audit logging query
+- [ ] expand on dashboard widgets
