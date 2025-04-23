@@ -7,6 +7,7 @@ This repository is for learning the technologies used within the Task 6 applicat
 ### Entities
 
 There are four types of entities:
+
 - Research Project (triangle): A high-level study that a University sector conducts to advance knowledge in a particular field.
 - Laboratory (circle): Those facilities, equipment, or tools that support the conduct of Research Projects, either directly or indirectly.
 - Researcher (square): A private or public sector individual, company, or business that owns, operates, maintains, or supplies a Laboratory.
@@ -15,6 +16,7 @@ There are four types of entities:
 ### Relationships
 
 The following explains the relationship structure:
+
 - Research Projects belong to Departments
 - Laboratories belong to Departments
 - Researchers belong to Departments
@@ -32,6 +34,7 @@ Apollo GraphQL Server
 ### Getting Started
 
 To run the Apollo GraphQL Server, run the following
+
 ```
 npm run start
 ```
@@ -43,6 +46,7 @@ React + TypeScript Vite Application
 ### Getting Started
 
 To start the dev server, run the following
+
 ```
 npm run dev
 ```
@@ -50,6 +54,7 @@ npm run dev
 ### Libraries
 
 You will interact with the following libraries over the course of this learning
+
 - [mantine](https://mantine.dev/)
 - [react-query](https://tanstack.com/query/latest)
 - [cytoscape](https://js.cytoscape.org/)
@@ -66,11 +71,3 @@ You will interact with the following libraries over the course of this learning
 - [Task 5: Analysis](/tasks/task5.md)
 - [Task 6: Create the Form drawer](/tasks/task6.md)
 - [Task 7: Bonus](/tasks/task7.md)
-
-# TODO
-
-- [ ] add sqlite database to allow for mutations
-- [ ] implement create / edit / delete mutations for projects
-- [ ] implement exporting capability
-- [ ] add some form of audit logging query
-- [ ] expand on dashboard widgets
