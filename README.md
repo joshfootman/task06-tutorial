@@ -1,8 +1,20 @@
 # Charlottes Web
 
-This repository is for learning the technologies used within the Task 6 application. The goal here is for you to learn about the libraries used within the UI and give you a chance to get your hands dirty.
+This repository is for learning the technologies used within the Task06 application.
+
+## Introduction
+
+The goal of this repository is for you to get a chance to build a similar application from the ground up. This will allow you to get your hands dirty and achieve a better understanding of the core libraries using within the Task06 application.
+
+You will be doing all work inside the `/ui` directory, making all api calls to the GraphQL server inside the `/graphql` directory.
+
+There are 6 core tasks that you will need to complete and an additional bonus task if you have time. These tasks can be seen [below](#tasks).
+
+All libraries have already been installed inside the UI's `package.json` that you will need to build the application. These libraries can be seen [below](#libraries).
 
 ## Data Structure
+
+The following explains the data structure inside Charlottes Web.
 
 ### Entities
 
@@ -28,6 +40,13 @@ The following explains the relationship structure:
 - Research Projects and Laboratories can be affiliated with Institutions
 
 ## Getting Started
+
+Run the following to get the application started.
+
+> [!NOTE]
+> The application was created with the following version of node & npm
+> node v22.4.1
+> npm v10.8.1
 
 ### GraphQL
 
