@@ -8,9 +8,9 @@ The goal of this repository is for you to get a chance to build a similar applic
 
 You will be doing all work inside the `/ui` directory, making all api calls to the GraphQL server inside the `/graphql` directory.
 
-There are 6 core tasks that you will need to complete and an additional bonus task if you have time. These tasks can be seen [below](#tasks).
+There are 6 core tasks that you will need to complete and an additional bonus task if you have time, make sure you complete these tasks in sequence. The details of these tasks can be found inside the `/tasks` directory.
 
-All libraries have already been installed inside the UI's `package.json` that you will need to build the application. These libraries can be seen [below](#libraries).
+All libraries have already been installed inside the UI's `package.json` that you will need to build the application. Read through the architecture docuemnts inside `/architecture` directory to get an understanding of how you should be building the application.
 
 ## Data Structure
 
