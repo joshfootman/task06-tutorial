@@ -1,5 +1,6 @@
 import {
   GraphQLFloat,
+  GraphQLInt,
   GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
@@ -18,21 +19,27 @@ import { DeleteProjectMutation } from './mutations/delete_project.js'
 const RelationshipType = new GraphQLObjectType({
   name: 'Relationship',
   fields: {
-    id: { type: new GraphQLNonNull(GraphQLString) },
+    id: { type: new GraphQLNonNull(GraphQLInt) },
     type: { type: new GraphQLNonNull(GraphQLString) },
-    target: { type: new GraphQLNonNull(NodeType) },
+    source: { type: new GraphQLNonNull(GraphQLInt) },
+    target: { type: new GraphQLNonNull(GraphQLInt) },
+    node: { type: new GraphQLNonNull(NodeType) },
+    createdAt: { type: new GraphQLNonNull(GraphQLString) },
+    updatedAt: { type: new GraphQLNonNull(GraphQLString) },
   },
 })
 
 const Institute = {
-  id: { type: new GraphQLNonNull(GraphQLString) },
+  id: { type: new GraphQLNonNull(GraphQLInt) },
   name: { type: new GraphQLNonNull(GraphQLString) },
   city: { type: new GraphQLNonNull(GraphQLString) },
   type: { type: new GraphQLNonNull(GraphQLString) },
+  createdAt: { type: new GraphQLNonNull(GraphQLString) },
+  updatedAt: { type: new GraphQLNonNull(GraphQLString) },
 }
 
 const Project = {
-  id: { type: new GraphQLNonNull(GraphQLString) },
+  id: { type: new GraphQLNonNull(GraphQLInt) },
   name: { type: new GraphQLNonNull(GraphQLString) },
   description: { type: new GraphQLNonNull(GraphQLString) },
   startedDate: { type: new GraphQLNonNull(GraphQLString) },
@@ -40,10 +47,12 @@ const Project = {
   goal: { type: new GraphQLNonNull(GraphQLString) },
   type: { type: new GraphQLNonNull(GraphQLString) },
   department: { type: new GraphQLNonNull(GraphQLString) },
+  createdAt: { type: new GraphQLNonNull(GraphQLString) },
+  updatedAt: { type: new GraphQLNonNull(GraphQLString) },
 }
 
 const Laboratory = {
-  id: { type: new GraphQLNonNull(GraphQLString) },
+  id: { type: new GraphQLNonNull(GraphQLInt) },
   name: { type: new GraphQLNonNull(GraphQLString) },
   description: { type: new GraphQLNonNull(GraphQLString) },
   room: { type: new GraphQLNonNull(GraphQLString) },
@@ -58,19 +67,23 @@ const Laboratory = {
       })
     ),
   },
-  equipment: { type: GraphQLString },
+  equipment: { type: new GraphQLList(GraphQLString) },
   type: { type: new GraphQLNonNull(GraphQLString) },
   department: { type: new GraphQLNonNull(GraphQLString) },
+  createdAt: { type: new GraphQLNonNull(GraphQLString) },
+  updatedAt: { type: new GraphQLNonNull(GraphQLString) },
 }
 
 const Researcher = {
-  id: { type: new GraphQLNonNull(GraphQLString) },
+  id: { type: new GraphQLNonNull(GraphQLInt) },
   name: { type: new GraphQLNonNull(GraphQLString) },
   expertise: { type: new GraphQLNonNull(GraphQLString) },
   position: { type: new GraphQLNonNull(GraphQLString) },
   contactEmail: { type: new GraphQLNonNull(GraphQLString) },
   type: { type: new GraphQLNonNull(GraphQLString) },
   department: { type: new GraphQLNonNull(GraphQLString) },
+  createdAt: { type: new GraphQLNonNull(GraphQLString) },
+  updatedAt: { type: new GraphQLNonNull(GraphQLString) },
 }
 
 const InstituteType = new GraphQLObjectType({

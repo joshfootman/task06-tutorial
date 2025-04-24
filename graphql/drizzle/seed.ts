@@ -42,12 +42,14 @@ async function seed() {
     await db.insert(researchersTable).values({ ...researcher, id })
   })
 
-  biology.relationships.forEach(async (relationship) => {
+  biology.relationships.forEach(async ({ type, ...rest }) => {
     const id = await getId('relationships')
-    await db.insert(relationshipsTable).values({ ...relationship, id })
+    await db.insert(relationshipsTable).values({
+      ...rest,
+      type: type as (typeof relationshipsTable.$inferSelect)['type'],
+      id,
+    })
   })
-
-  //
 
   chemistry.projects.forEach(async (project) => {
     const id = await getId('projects')
@@ -64,12 +66,14 @@ async function seed() {
     await db.insert(researchersTable).values({ ...researcher, id })
   })
 
-  chemistry.relationships.forEach(async (relationship) => {
+  chemistry.relationships.forEach(async ({ type, ...rest }) => {
     const id = await getId('relationships')
-    await db.insert(relationshipsTable).values({ ...relationship, id })
+    await db.insert(relationshipsTable).values({
+      ...rest,
+      type: type as (typeof relationshipsTable.$inferSelect)['type'],
+      id,
+    })
   })
-
-  //
 
   physics.projects.forEach(async (project) => {
     const id = await getId('projects')
@@ -86,9 +90,13 @@ async function seed() {
     await db.insert(researchersTable).values({ ...researcher, id })
   })
 
-  physics.relationships.forEach(async (relationship) => {
+  physics.relationships.forEach(async ({ type, ...rest }) => {
     const id = await getId('relationships')
-    await db.insert(relationshipsTable).values({ ...relationship, id })
+    await db.insert(relationshipsTable).values({
+      ...rest,
+      type: type as (typeof relationshipsTable.$inferSelect)['type'],
+      id,
+    })
   })
 
   console.timeEnd(`🌱 Database has been seeded`)

@@ -61,7 +61,7 @@ export const SearchByDepartmentQuery: GraphQLFieldConfig<
         )
       )
 
-    return format([
+    return await format([
       ...projects,
       ...laboratories,
       ...researchers,

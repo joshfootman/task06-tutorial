@@ -1,3 +1,4 @@
+import { and, eq, like, inArray } from 'drizzle-orm'
 import { union } from 'drizzle-orm/sqlite-core'
 import {
   GraphQLFieldConfig,
@@ -6,7 +7,7 @@ import {
   GraphQLNonNull,
   GraphQLString,
 } from 'graphql'
-import { NodeType } from '../common.js'
+import { db } from '../../drizzle/config.js'
 import {
   idTable,
   institutionsTable,
@@ -14,9 +15,8 @@ import {
   projectsTable,
   researchersTable,
 } from '../../drizzle/schema.js'
-import { db } from '../../drizzle/config.js'
-import { eq, ilike } from 'drizzle-orm'
 import { format } from '../../utils/format.js'
+import { NodeType } from '../common.js'
 
 const tables = {
   projects: projectsTable,
@@ -28,13 +28,20 @@ const tables = {
 export const SearchByNameQuery: GraphQLFieldConfig<
   any,
   any,
-  { term: string; departments: string[]; limit: number }
+  {
+    term: string
+    departments: ('Biological Sciences' | 'Chemistry' | 'Physics & Astronomy')[]
+    limit: number
+  }
 > = {
   args: {
     term: {
       type: new GraphQLNonNull(GraphQLString),
     },
-    departments: { type: new GraphQLList(GraphQLString) },
+    departments: {
+      type: new GraphQLList(GraphQLString),
+      defaultValue: ['Biological Sciences', 'Chemistry', 'Physics & Astronomy'],
+    },
     limit: { type: GraphQLInt, defaultValue: 50 },
   },
   resolve: async (_, { departments, limit, term }) => {
@@ -42,19 +49,34 @@ export const SearchByNameQuery: GraphQLFieldConfig<
       db
         .select({ id: projectsTable.id })
         .from(projectsTable)
-        .where(ilike(projectsTable.name, `%${term}%`)),
+        .where(
+          and(
+            like(projectsTable.name, `%${term}%`),
+            inArray(projectsTable.department, departments)
+          )
+        ),
       db
         .select({ id: laboratoriesTable.id })
         .from(laboratoriesTable)
-        .where(ilike(laboratoriesTable.name, `%${term}%`)),
+        .where(
+          and(
+            like(laboratoriesTable.name, `%${term}%`),
+            inArray(laboratoriesTable.department, departments)
+          )
+        ),
       db
         .select({ id: researchersTable.id })
         .from(researchersTable)
-        .where(ilike(researchersTable.name, `%${term}%`)),
+        .where(
+          and(
+            like(researchersTable.name, `%${term}%`),
+            inArray(researchersTable.department, departments)
+          )
+        ),
       db
         .select({ id: institutionsTable.id })
         .from(institutionsTable)
-        .where(ilike(institutionsTable.name, `%${term}%`))
+        .where(like(institutionsTable.name, `%${term}%`))
     ).limit(limit)
 
     const entities = await Promise.all(
@@ -70,7 +92,7 @@ export const SearchByNameQuery: GraphQLFieldConfig<
       })
     )
 
-    return format(entities)
+    return await format(entities)
   },
   type: new GraphQLList(NodeType),
 }

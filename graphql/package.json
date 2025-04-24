@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "compile": "tsc",
+    "compile": "tsc --skipLibCheck",
     "start": "npm run compile && node ./dist/graphql/index.js",
+    "test": "vitest ./schema/queries/__tests__",
+    "test:mutation": "vitest ./schema/mutations/__tests__",
     "db:push": "drizzle-kit push",
-    "db:seed": "tsx ./src/seed.ts",
+    "db:seed": "tsx ./drizzle/seed.ts",
     "db:studio": "drizzle-kit studio"
   },
   "keywords": [],
@@ -15,16 +17,17 @@
   "description": "",
   "type": "module",
   "dependencies": {
-    "@apollo/server": "^4.11.0",
+    "@apollo/server": "^4.9.3",
     "@libsql/client": "^0.15.4",
     "dotenv": "^16.5.0",
     "drizzle-kit": "^0.31.0",
     "drizzle-orm": "^0.42.0",
-    "graphql": "^16.9.0",
-    "tsx": "^4.19.3"
+    "graphql": "^16.9"
   },
   "devDependencies": {
     "@types/node": "^22.6.0",
-    "typescript": "^5.6.2"
+    "tsx": "^4.19.3",
+    "typescript": "^5.6.2",
+    "vitest": "^3.1.2"
   }
 }

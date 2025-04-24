@@ -20,7 +20,7 @@ export const idTable = sqliteTable(
 export const projectsTable = sqliteTable(
   'projects_table',
   {
-    id: int().primaryKey(),
+    id: int().notNull(),
     name: text().notNull(),
     description: text(),
     startedDate: text().notNull(),
@@ -42,8 +42,9 @@ export const projectsTable = sqliteTable(
 export const laboratoriesTable = sqliteTable(
   'laboratories_table',
   {
-    id: int().primaryKey(),
+    id: int().notNull(),
     name: text().notNull(),
+    description: text().notNull(),
     room: text().notNull(),
     equipment: blob({ mode: 'json' }).$type<string[]>().default([]),
     physicalLocation: blob({ mode: 'json' })
@@ -65,7 +66,7 @@ export const laboratoriesTable = sqliteTable(
 export const researchersTable = sqliteTable(
   'researchers_table',
   {
-    id: int().primaryKey(),
+    id: int().notNull(),
     name: text().notNull(),
     expertise: text().notNull(),
     position: text().notNull(),
@@ -86,7 +87,7 @@ export const researchersTable = sqliteTable(
 export const institutionsTable = sqliteTable(
   'institutions_table',
   {
-    id: int().primaryKey(),
+    id: int().notNull(),
     name: text().notNull(),
     city: text().notNull(),
     type: text({ enum: ['INSTITUTION'] }).notNull(),
@@ -102,7 +103,7 @@ export const institutionsTable = sqliteTable(
 export const relationshipsTable = sqliteTable(
   'relationships_table',
   {
-    id: int().primaryKey(),
+    id: int().notNull(),
     source: int().notNull(),
     target: int().notNull(),
     type: text({

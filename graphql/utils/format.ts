@@ -24,68 +24,73 @@ type FormattedEntity = Entity & {
   >
 }
 
-export const format = (entities: Entity[]): FormattedEntity[] => {
+const getTargetEntity = async (target: number) => {
+  const project = await db
+    .select()
+    .from(projectsTable)
+    .where(eq(projectsTable.id, target))
+
+  if (project.length) {
+    return project[0]
+  }
+
+  const laboratory = await db
+    .select()
+    .from(laboratoriesTable)
+    .where(eq(laboratoriesTable.id, target))
+
+  if (laboratory.length) {
+    return laboratory[0]
+  }
+
+  const researcher = await db
+    .select()
+    .from(researchersTable)
+    .where(eq(researchersTable.id, target))
+
+  if (researcher.length) {
+    return researcher[0]
+  }
+
+  const institution = await db
+    .select()
+    .from(institutionsTable)
+    .where(eq(institutionsTable.id, target))
+
+  if (institution.length) {
+    return institution[0]
+  }
+}
+
+const getFormattedRelationships = async (id: number) => {
+  const formattedRelationships: FormattedEntity['relationships'] = []
+  const relationships = await db
+    .select()
+    .from(relationshipsTable)
+    .where(eq(relationshipsTable.source, id))
+
+  for (const relationship of relationships) {
+    const targetEntity = await getTargetEntity(relationship.target)
+    formattedRelationships.push({
+      ...relationship,
+      node: targetEntity,
+    })
+  }
+
+  return formattedRelationships
+}
+
+export const format = async (
+  entities: Entity[]
+): Promise<FormattedEntity[]> => {
   const results: FormattedEntity[] = []
 
-  entities.forEach(async (entity) => {
+  for (const entity of entities) {
     const formattedEntity: FormattedEntity = { ...entity, relationships: [] }
-
-    const relationships = await db
-      .select()
-      .from(relationshipsTable)
-      .where(eq(relationshipsTable.source, entity.id))
-
-    relationships.forEach(async (relationship) => {
-      const project = await db
-        .select()
-        .from(projectsTable)
-        .where(eq(projectsTable.id, relationship.target))
-
-      if (project.length) {
-        formattedEntity.relationships.push({
-          ...relationship,
-          node: project[0],
-        })
-      } else {
-        const laboratory = await db
-          .select()
-          .from(laboratoriesTable)
-          .where(eq(laboratoriesTable.id, relationship.target))
-
-        if (laboratory.length) {
-          formattedEntity.relationships.push({
-            ...relationship,
-            node: laboratory[0],
-          })
-        } else {
-          const researcher = await db
-            .select()
-            .from(researchersTable)
-            .where(eq(researchersTable.id, relationship.target))
-
-          if (researcher.length) {
-            formattedEntity.relationships.push({
-              ...relationship,
-              node: researcher[0],
-            })
-          } else {
-            const institution = await db
-              .select()
-              .from(institutionsTable)
-              .where(eq(institutionsTable.id, relationship.target))
-
-            if (institution.length) {
-              formattedEntity.relationships.push({
-                ...relationship,
-                node: institution[0],
-              })
-            }
-          }
-        }
-      }
-    })
-
+    const formattedRelationships = await getFormattedRelationships(entity.id)
+    formattedEntity.relationships.push(...formattedRelationships)
     results.push(formattedEntity)
-  })
+  }
+
   return results
 }

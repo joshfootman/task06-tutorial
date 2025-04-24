@@ -33,7 +33,7 @@ export const FindByIdQuery: GraphQLFieldConfig<any, any, { id: number }> = {
     const table = tables[tableWithId[0].table as keyof typeof tables]
     const result = await db.select().from(table).where(eq(table.id, id))
 
-    return format(result)
+    return (await format(result))[0]
   },
   type: NodeType,
 }

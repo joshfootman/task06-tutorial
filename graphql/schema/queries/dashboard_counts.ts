@@ -23,7 +23,10 @@ export const DashboardCountsQuery: GraphQLFieldConfig<
   }
 > = {
   args: {
-    departments: { type: new GraphQLList(GraphQLString) },
+    departments: {
+      type: new GraphQLList(GraphQLString),
+      defaultValue: ['Biological Sciences', 'Chemistry', 'Physics & Astronomy'],
+    },
   },
   resolve: async (_, { departments }) => {
     const institutions = await db
@@ -33,29 +36,17 @@ export const DashboardCountsQuery: GraphQLFieldConfig<
     const projects = await db
       .select({ count: count() })
       .from(projectsTable)
-      .where(
-        departments.length > 0
-          ? inArray(projectsTable.department, departments)
-          : undefined
-      )
+      .where(inArray(projectsTable.department, departments))
 
     const laboratories = await db
       .select({ count: count() })
       .from(laboratoriesTable)
-      .where(
-        departments.length > 0
-          ? inArray(laboratoriesTable.department, departments)
-          : undefined
-      )
+      .where(inArray(laboratoriesTable.department, departments))
 
     const researchers = await db
       .select({ count: count() })
       .from(researchersTable)
-      .where(
-        departments.length > 0
-          ? inArray(researchersTable.department, departments)
-          : undefined
-      )
+      .where(inArray(researchersTable.department, departments))
 
     return {
       institutions: institutions[0].count,

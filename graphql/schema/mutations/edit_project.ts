@@ -15,17 +15,17 @@ export const EditProjectMutation: GraphQLFieldConfig<
   {
     id: number
     description?: string
-    startedDate: string
+    startedDate?: string
     finishedDate?: string
-    goal: string
+    goal?: string
   }
 > = {
   args: {
     id: { type: new GraphQLNonNull(GraphQLInt) },
     description: { type: GraphQLString },
-    startedDate: { type: new GraphQLNonNull(GraphQLString) },
+    startedDate: { type: GraphQLString },
     finishedDate: { type: GraphQLString },
-    goal: { type: new GraphQLNonNull(GraphQLString) },
+    goal: { type: GraphQLString },
   },
   resolve: async (_, { id, ...project }) => {
     const result = await db

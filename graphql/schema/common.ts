@@ -1,11 +1,18 @@
-import { GraphQLInterfaceType, GraphQLNonNull, GraphQLString } from "graphql";
+import {
+  GraphQLInt,
+  GraphQLInterfaceType,
+  GraphQLNonNull,
+  GraphQLString,
+} from 'graphql'
 
 export const NodeType = new GraphQLInterfaceType({
-  name: "Node",
+  name: 'Node',
   fields: {
-    id: { type: new GraphQLNonNull(GraphQLString) },
+    id: { type: new GraphQLNonNull(GraphQLInt) },
     name: { type: new GraphQLNonNull(GraphQLString) },
     type: { type: new GraphQLNonNull(GraphQLString) },
+    createdAt: { type: new GraphQLNonNull(GraphQLString) },
+    updatedAt: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolveType: (value) => {
     if (value.type === 'INSTITUTION') return 'Institution'
@@ -13,4 +20,4 @@ export const NodeType = new GraphQLInterfaceType({
     if (value.type === 'LABORATORY') return 'Laboratory'
     if (value.type === 'RESEARCHER') return 'Researcher'
   },
-});
+})
