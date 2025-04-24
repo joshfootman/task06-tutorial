@@ -44,8 +44,8 @@ The following explains the relationship structure:
 Run the following to get the application started.
 
 > [!NOTE]
-> The application was created with the following version of node & npm
-> node v22.4.1
+> The application was created with the following version of node & npm<br/>
+> node v22.4.1<br/>
 > npm v10.8.1
 
 ### GraphQL
