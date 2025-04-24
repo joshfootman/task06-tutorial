@@ -8,13 +8,13 @@ describe('search by department suite', () => {
     const server = new ApolloServer({ schema })
 
     const response = await server.executeOperation({
-      query: `query SearchByDepartment($department: String!) { searchByDepartment(department: $department) { id, name, type, ... on Project { relationships { id, type, node { id, name, type } } } ... on Laboratory { relationships { id, type, node { id, name, type } } } ... on Researcher { relationships { id, type, node { id, name, type } } } ... on Institution { relationships { id, type, node { id, name, type } } } } }`,
+      query: `query SearchByDepartment($department: String!) { getByDepartment(department: $department) { id, name, type, ... on Project { relationships { id, type, node { id, name, type } } } ... on Laboratory { relationships { id, type, node { id, name, type } } } ... on Researcher { relationships { id, type, node { id, name, type } } } ... on Institution { relationships { id, type, node { id, name, type } } } } }`,
       variables: { department: 'Physics & Astronomy' },
     })
 
     assert(response.body.kind === 'single')
     expect(response.body.singleResult.errors).toBeUndefined()
-    expect(response.body.singleResult.data?.searchByDepartment).toEqual([
+    expect(response.body.singleResult.data?.getByDepartment).toEqual([
       {
         id: 217,
         name: 'Quantum Computing and Information Science',

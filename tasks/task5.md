@@ -17,8 +17,8 @@
 ## Analysis
 
 - the following GraphQL queries should be implemented depending on how users navigated to analysis
-  - `searchByDepartment` - clicked on a card
-  - `findById` - clicked on a search result
+  - `getByDepartment` - clicked on a card
+  - `getById` - clicked on a search result
 
 ## Filter panel
 

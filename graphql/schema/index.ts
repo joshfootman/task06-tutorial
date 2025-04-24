@@ -133,8 +133,8 @@ const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: {
     searchByName: SearchByNameQuery,
-    searchByDepartment: SearchByDepartmentQuery,
-    findById: FindByIdQuery,
+    getByDepartment: SearchByDepartmentQuery,
+    getById: FindByIdQuery,
     dashboardCounts: DashboardCountsQuery,
   },
 })

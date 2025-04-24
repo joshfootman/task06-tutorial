@@ -8,13 +8,13 @@ describe('find by id suite', () => {
     const server = new ApolloServer({ schema })
 
     const response = await server.executeOperation({
-      query: `query FindById($id: Int!) { findById(id: $id) { id, name, type, createdAt, updatedAt, ... on Project { description, startedDate, finishedDate, goal, department, relationships { id, source, target, type, node { id, name, type } } } } }`,
+      query: `query FindById($id: Int!) { getById(id: $id) { id, name, type, createdAt, updatedAt, ... on Project { description, startedDate, finishedDate, goal, department, relationships { id, source, target, type, node { id, name, type } } } } }`,
       variables: { id: 10 },
     })
 
     assert(response.body.kind === 'single')
     expect(response.body.singleResult.errors).toBeUndefined()
-    expect(response.body.singleResult.data?.findById).toEqual({
+    expect(response.body.singleResult.data?.getById).toEqual({
       createdAt: '2025-04-24 13:19:51',
       department: 'Biological Sciences',
       description:
@@ -57,13 +57,13 @@ describe('find by id suite', () => {
     const server = new ApolloServer({ schema })
 
     const response = await server.executeOperation({
-      query: `query FindById($id: Int!) { findById(id: $id) { id, name, type, createdAt, updatedAt, ... on Laboratory { description, room, physicalLocation { latitude, longitude }, equipment, department, relationships { id, source, target, type, node { id, name, type } } } } }`,
+      query: `query FindById($id: Int!) { getById(id: $id) { id, name, type, createdAt, updatedAt, ... on Laboratory { description, room, physicalLocation { latitude, longitude }, equipment, department, relationships { id, source, target, type, node { id, name, type } } } } }`,
       variables: { id: 28 },
     })
 
     assert(response.body.kind === 'single')
     expect(response.body.singleResult.errors).toBeUndefined()
-    expect(response.body.singleResult.data?.findById).toEqual({
+    expect(response.body.singleResult.data?.getById).toEqual({
       createdAt: '2025-04-24 13:19:51',
       department: 'Biological Sciences',
       description:
@@ -127,13 +127,13 @@ describe('find by id suite', () => {
     const server = new ApolloServer({ schema })
 
     const response = await server.executeOperation({
-      query: `query FindById($id: Int!) { findById(id: $id) { id, name, type, createdAt, updatedAt, ... on Researcher { expertise, position, contactEmail, department, relationships { id, source, target, type, node { id, name, type } } } } }`,
+      query: `query FindById($id: Int!) { getById(id: $id) { id, name, type, createdAt, updatedAt, ... on Researcher { expertise, position, contactEmail, department, relationships { id, source, target, type, node { id, name, type } } } } }`,
       variables: { id: 41 },
     })
 
     assert(response.body.kind === 'single')
     expect(response.body.singleResult.errors).toBeUndefined()
-    expect(response.body.singleResult.data?.findById).toEqual({
+    expect(response.body.singleResult.data?.getById).toEqual({
       contactEmail: 'e.vance@example.ac.uk',
       createdAt: '2025-04-24 13:19:51',
       department: 'Biological Sciences',
@@ -174,13 +174,13 @@ describe('find by id suite', () => {
     const server = new ApolloServer({ schema })
 
     const response = await server.executeOperation({
-      query: `query FindById($id: Int!) { findById(id: $id) { id, name, type, createdAt, updatedAt, ... on Institution { city, relationships { id, source, target, type, node { id, name, type } } } } }`,
+      query: `query FindById($id: Int!) { getById(id: $id) { id, name, type, createdAt, updatedAt, ... on Institution { city, relationships { id, source, target, type, node { id, name, type } } } } }`,
       variables: { id: 1 },
     })
 
     assert(response.body.kind === 'single')
     expect(response.body.singleResult.errors).toBeUndefined()
-    expect(response.body.singleResult.data?.findById).toEqual({
+    expect(response.body.singleResult.data?.getById).toEqual({
       city: 'Bristol',
       createdAt: '2025-04-24 13:19:51',
       id: 1,
