@@ -1,7 +1,7 @@
 # Task 6: Create the Form drawer
 
-![sketch of the form drawer](/assets/task6a.png)
-![sketch of the research project create form](/assets/task6b.png)
+![sketch of the form drawer](/tasks/assets/task6a.png)
+![sketch of the research project create form](/tasks/assets/task6b.png)
 
 ## Goals
 

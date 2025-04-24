@@ -1,7 +1,7 @@
 # Task 5: Analysis
 
-![sketch of the analysis page](/assets/task5a.png)
-![sketch of the analysis page with the properties panel open](/assets/task5b.png)
+![sketch of the analysis page](/tasks/assets/task5a.png)
+![sketch of the analysis page with the properties panel open](/tasks/assets/task5b.png)
 
 ## Goals
 

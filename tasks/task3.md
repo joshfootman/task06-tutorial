@@ -1,6 +1,6 @@
 # Task 3: Dashboard
 
-![sketch of the dashboard page](/assets/task3.png)
+![sketch of the dashboard page](/tasks/assets/task3.png)
 
 ## Goals
 

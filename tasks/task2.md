@@ -1,6 +1,6 @@
 # Task 2: Create Modals & implement DarkTheme™
 
-![sketch of the settings modal](/assets/task2.png)
+![sketch of the settings modal](/tasks/assets/task2.png)
 
 ## Goals
 
