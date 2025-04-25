@@ -63,18 +63,23 @@ To start the dev server, run the following
 npm run dev
 ```
 
-## Libraries
+## Architecture
 
-You will interact with the following libraries over the course of this learning
+Below you will find links to the core architectural patterns and key technologies we use in the Task06 application. By following this structure throughout the tutorial, you will gain a solid understanding of how the application is organized, how its different parts connect, and the principles that guide our development process. Familiarity with these architectural choices is essential for building features correctly and effectively contributing to the project.
 
-- [mantine](https://mantine.dev/)
-- [react-query](https://tanstack.com/query/latest)
-- [cytoscape](https://js.cytoscape.org/)
-- [openlayers](https://openlayers.org/)
-- [jotai](https://jotai.org/)
-- [react-router](https://reactrouter.com/6.30.0)
+- [Components](/architecture/components.md)
+- [Data Fetching](/architecture/data-fetching.md.md)
+- [Dates & Times](/architecture/dates-and-times.md)
+- [Forms](/architecture/forms.md)
+- [Parsing](/architecture/parsing.md)
+- [Routing](/architecture/routing.md)
+- [State](/architecture/state.md)
+- [Styling](/architecture/styling.md)
+- [Visualisation](/architecture/visualisation.md)
 
 # Tasks
+
+Below you will find links to the practical tasks designed to guide you through building the Task06 application using the architecture and technologies we've discussed. Each link corresponds to a specific exercise or set of steps where you will apply your knowledge of components, data fetching, routing, state management, styling, and visualisation in a hands-on manner. Work through these tasks by clicking the links below – they are your opportunity to build, practice, and solidify your understanding of the Task06 codebase.
 
 - [Task 1: Create the Root Layout & Router](/tasks/task1.md)
 - [Task 2: Create Modals & implement DarkTheme™](/tasks/task2.md)
